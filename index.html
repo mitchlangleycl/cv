@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio & CV</title>
+    <link href="cv.css" rel="stylesheet">
+    <style>
+        body {
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            box-sizing:border-box;
+            padding:20px 0;
+        }
+        .page{
+            margin: 0 auto !important;
+            min-height: 4.5in;
+            position:relative;
+        }
+        /* Only layout and button properties not defined in cv.css */
+        .section-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 25px auto; /* Centers the block horizontally */
+            padding: 20px;
+            border: 2px solid var(--btn);
+            border-radius: 12px;
+            width: 360px; /* Prevents the block from stretching full-width */
+            max-width: 100%;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
+        }
+        .btn {
+            width: 5vw; 
+            min-width: 120px; 
+            padding: 10px 15px;
+            background-color: var(--btn);
+            color: var(--bg); /* Using your white var for contrast text color */
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 10pt;
+            font-weight: 600;
+            transition: background 0.2s;
+            text-align: center; 
+        }
+        .btn.nodisp {
+            background-color:var(--btn-no-disp);
+            color:var(--primary)
+        }
+        .btn:hover {
+            background-color: var(--btn-hover);
+        }
+
+        .btn.nodisp:hover {
+            background-color: var(--btn-no-disp)
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <!-- Uses .doc-head and structural typography from cv.css -->
+        <div class="doc-head">
+            <h1 class="doc-name">Mitchell Langley</h1>
+            <div class="doc-role">Infrastructure · Project Finance · Regulatory &amp; Permitting</div>
+            <div class="doc-role">Infraestructura · Financiamiento de Proyectos · Regulación &amp; Permisología</div>
+            <div class="doc-contact">
+                <span>Santiago, Chile</span> · 
+                <a href="tel:+56987766277">+56 9 8776 6277</a> · 
+                <a href="mailto:mitch@mitchlangley.cl">mitch@mitchlangley.cl</a> · 
+                <a href="http://www.linkedin.com/in/mklangley" target="_blank">linkedin.com/in/mklangley</a>
+            </div>
+        </div>
+
+        <!-- Section 1: CV -->
+        <div class="section-block">
+            <h2 class="sec" style="border-bottom:none !important;">CV · Resumé</h2>
+            <div class="btn-group">
+                <a href="cv_eng.html" class="btn" target="_blank">English</a>
+                <a href="cv_esp.html" class="btn nodisp" target="_blank">Español</a>
+            </div>
+        </div>
+
+        <!-- Section 2: Portfolio -->
+        <div class="section-block">
+            <h2 class="sec" style="border-bottom:none !important;">Project Portfolio · Portafolio de Experiencia</h2>
+            <div class="btn-group">
+                <a href="path-to-portfolio-en.html" class="btn" target="_blank">English</a>
+                <a href="path-to-portfolio-es.html" class="btn nodisp" target="_blank">Español</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
