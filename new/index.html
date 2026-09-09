@@ -3,146 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mitchell Langley - CV and Portfolio</title>
+    <title>Mitchell Langley · CV &amp; Project Portfolio</title>
+    <meta name="description" content="Mitchell Langley — bilingual infrastructure, project finance, and regulatory consultant. CV and project portfolio in English and Spanish.">
     <link href="cv.css" rel="stylesheet">
     <style>
-        body {
+        /* This page is a routing cover for the CV and portfolio documents.
+           It borrows the shell, tokens, and components from cv.css and adds
+           only the layout it needs of its own. */
+
+        body{
+            min-height:100vh;
             display:flex;
             flex-direction:column;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-            box-sizing:border-box;
-            padding:20px 0;
+            padding:36px 20px;
         }
         .page{
-            margin: 0 auto !important;
-            min-height: 4.5in;
-            position:relative;
+            width:min(650px,calc(100% - 40px));
+            min-height:0;
+            margin-block:auto;
         }
-        /* Only layout and button properties not defined in cv.css */
-        .section-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 25px auto; /* Centers the block horizontally */
-            padding: 20px;
-            border: 2px solid var(--btn);
-            border-radius: 12px;
-            width: 360px; /* Prevents the block from stretching full-width */
-            max-width: 100%;
+
+        .doc-role[lang="es"]{
+            margin-top:5px;
+            color:var(--text);
+            font-weight:560;
+            font-size:var(--t-md);
+            letter-spacing:.005em;
         }
-        .btn-group {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
+
+        .hub-lede,
+        .hub-routes,
+        .hub-scale,
+        .hub-foot{padding-inline:42px}
+
+        .hub-lede{padding-top:26px;padding-bottom:4px}
+        .hub-lede p{
+            margin:0;
+            color:var(--ink);
+            font-size:var(--t-lg);
+            line-height:1.5;
+        }
+        .hub-lede p[lang="es"]{
+            margin-top:8px;
+            color:var(--muted);
+            font-size:var(--t-md);
+            line-height:1.55;
+        }
+
+        .hub-routes{
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:18px;
+            padding-top:26px;
+            padding-bottom:26px;
             width: 100%;
+    max-width: 800px; /* Caps maximum width */
         }
-        .btn {
-            width: 5vw; 
-            min-width: 120px; 
-            padding: 10px 15px;
-            background-color: var(--btn);
-            color: var(--bg); /* Using your white var for contrast text color */
-            text-decoration: none;
-            border-radius: 4px;
-            font-size: 10pt;
-            font-weight: 600;
-            transition: background 0.2s;
-            text-align: center; 
+        .route{
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:22px 22px 20px;
+            border:1px solid var(--blue);
+            border-radius:var(--radius);
+            background:var(--surface);
         }
-        .btn.nodisp {
-            background-color:var(--btn-no-disp);
-            color:var(--primary)
+        .route-title{
+            margin:0;
+            color:var(--navy);
+            font-size:var(--t-xl);
+            font-weight:760;
+            letter-spacing:-.01em;
+            padding-bottom:12px;
         }
-        .btn:hover {
-            background-color: var(--btn-hover);
+        .route-sub{
+            margin:3px 0 0;
+            color:var(--muted);
+            font-size:var(--t-sm);
+            font-weight:600;
         }
-
-        .btn.nodisp:hover {
-            background-color: var(--btn-no-disp)
+        .route-desc{
+            margin:12px 0 18px;
+            color:var(--text);
+            font-size:var(--t-md);
+            line-height:1.55;
         }
-
-        @media screen and (max-width: 700px) {
-            body {
-                justify-content:flex-start;
-                min-height:100dvh;
-                padding:0;
-            }
-            .page {
-                width:100%;
-                min-height:100dvh;
-                padding:22px 18px 30px;
-            }
-            .section-block {
-                width:100%;
-                max-width:420px;
-                margin:18px auto;
-                padding:18px 14px;
-            }
-            .section-block h2.sec {
-                margin-top:0;
-                text-align:center;
-                line-height:1.3;
-            }
-            .btn-group {
-                flex-wrap:wrap;
-                gap:10px;
-            }
-            .btn {
-                flex:1 1 120px;
-                width:auto;
-                min-width:0;
-                padding:12px 14px;
-            }
+        .route-links{
+            display:flex;
+            flex-wrap:wrap;
+            gap:9px;
+            margin-top:auto;
+        }
+        .route-links a{
+            appearance:none;
+            border:1px solid var(--navy);
+            background:var(--surface);
+            color:var(--navy);
+            border-radius:999px;
+            padding:10px 16px;
+            font:650 var(--t-md) var(--sans);
+            text-decoration:none;
+            transition:transform .18s ease,background-color .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease;
+        }
+        .route-links a.primary{background:var(--navy);color:#fff}
+        .route-links a:hover{
+            transform:translateY(-1px);
+            background:var(--blue-hover);
+            border-color:var(--blue-hover);
+            color:#fff;
+            box-shadow:0 6px 16px rgba(16,41,60,.14);
         }
 
-        @media screen and (max-width: 420px) {
-            .page {
-                padding:18px 14px 24px;
-            }
-            .section-block {
-                margin:14px auto;
-            }
-            .btn {
-                flex-basis:100%;
-            }
+        .hub-scale{padding-top:24px;padding-bottom:32px}
+        .hub-scale .section-kicker{margin:0 0 12px}
+        .hub-scale .metrics-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+        .hub-foot{
+            padding-top:16px;
+            padding-bottom:28px;
+            border-top:1px solid var(--rule);
+            color:var(--muted);
+            font-size:var(--t-xxs);
+            font-style:italic;
+        }
+
+        /* browser surfaces cv.css leaves at their defaults */
+        ::selection{background:var(--blue-impact);color:var(--ink)}
+        a:focus-visible,
+        .route-links a:focus-visible{
+            outline:2px solid var(--blue-hover);
+            outline-offset:3px;
+            border-radius:4px;
+        }
+
+        @media screen and (max-width:900px){
+            .hub-lede,
+            .hub-routes,
+            .hub-scale,
+            .hub-foot{padding-inline:26px}
+        }
+        @media screen and (max-width:600px){
+            body{padding:0}
+            .page{width:100%;margin:0}
+            .hub-lede,
+            .hub-routes,
+            .hub-scale,
+            .hub-foot{padding-inline:18px}
+            .hub-routes{grid-template-columns:1fr;gap:14px}
+            .hub-scale .metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+        }
+        @media screen and (max-width:380px){
+            .hub-scale .metrics-grid{grid-template-columns:1fr 1fr}
+        }
+        @media print{
+            .hub-routes,
+            .hub-foot{display:none}
+            .page{border:0;box-shadow:none}
         }
     </style>
 </head>
 <body>
 
     <div class="page">
-        <!-- Uses .doc-head and structural typography from cv.css -->
-        <div class="doc-head">
-            <h1 class="doc-name">Mitchell Langley</h1>
-            <div class="doc-role">Infrastructure · Project Finance · Regulatory &amp; Permitting</div>
-            <div class="doc-role">Infraestructura · Financiamiento de Proyectos · Regulación &amp; Permisología</div>
-            <div class="doc-contact">
-                <span>Santiago, Chile</span> · 
-                <a href="tel:+56987766277">+56 9 8776 6277</a> · 
-                <a href="mailto:mitch@mitchlangley.cl">mitch@mitchlangley.cl</a> · 
-                <a href="http://www.linkedin.com/in/mklangley" target="_blank">linkedin.com/in/mklangley</a>
+        <header class="doc-head">
+            <div>
+                <h1 class="doc-name">Mitchell Langley</h1>
+                <div class="doc-role">Infrastructure · Project Finance · Regulatory &amp; Permitting</div>
+                <div class="doc-role" lang="es">Infraestructura · Financiamiento de Proyectos · Regulación y Permisos</div>
+                <div class="doc-contact">
+                    <span>Santiago, Chile</span> ·
+                    <a href="tel:+56987766277">+56 9 8776 6277</a> ·
+                    <a href="mailto:mitch@mitchlangley.cl">mitch@mitchlangley.cl</a> ·
+                    <a href="http://www.linkedin.com/in/mklangley" target="_blank" rel="noopener">linkedin.com/in/mklangley</a>
+                </div>
             </div>
-        </div>
+        </header>
 
-        <!-- Section 1: CV -->
-        <div class="section-block">
-            <h2 class="sec" style="border-bottom:none !important;">Resumé · CV</h2>
-            <div class="btn-group">
-                <a href="cv_eng.html" class="btn" target="_blank">English</a>
-                <a href="cv_esp.html" class="btn" target="_blank">Español</a>
-            </div>
-        </div>
+        <section class="hub-routes" aria-label="Documents">
+            <article class="route">
+                <h2 class="route-title">English</h2>
+                <div class="route-links">
+                    <a href="cv_eng.html" target="_blank" rel="noopener">CV</a>
+                    <a href="portfolio_eng.html" target="_blank" rel="noopener" lang="es">Portfolio</a>
+                </div>
+            </article>
 
-        <!-- Section 2: Portfolio -->
-        <div class="section-block">
-            <h2 class="sec" style="border-bottom:none !important;">Project Portfolio · Portafolio de Proyectos</h2>
-            <div class="btn-group">
-                <a href="portfolio_eng.html" class="btn" target="_blank">English</a>
-                <a href="portfolio_esp.html" class="btn" target="_blank">Español</a>
-            </div>
-        </div>
+            <article class="route">
+                <h2 class="route-title">Español</h2>
+                <div class="route-links">
+                    <a href="cv_esp.html" target="_blank" rel="noopener">CV</a>
+                    <a href="portfolio_esp.html" target="_blank" rel="noopener" lang="es">Portafolio</a>
+                </div>
+            </article>
+        </section>
+
+        <div class="hub-foot">"Personal refinement does not happen in isolation; thoughtful peers and honest relationships elevate character." Proverbs 27:17</div>
     </div>
 
 </body>

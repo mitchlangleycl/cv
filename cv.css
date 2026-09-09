@@ -8,6 +8,7 @@
 
 :root{
   --primary:#0f0f0f;
+    --navy:#10293c;
   --text:#444444;
   --rule:#D8DCE0;
   --btn: #10293c;
@@ -47,8 +48,13 @@ body{font-family:var(--sans);font-size:11pt;line-height:1.4;color:var(--text)}
   padding-bottom:0.1in;margin-bottom:0.2in;
 }
 .doc-name{
-  font-family:var(--sans);font-size:14pt;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;
-  color:var(--primary);line-height:1.2;margin:0;
+  margin:0;
+  font-size:clamp(25px,2.6vw,38px);
+  line-height:1.04;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+  color:var(--primary);
+  font-weight:780;
 }
 .doc-role{
   font-size:9pt;color:var(--text);line-height:1.2;
