@@ -7,45 +7,72 @@
 }
 
 :root{
-  --primary:#0f0f0f;
-    --navy:#10293c;
-  --text:#444444;
-  --rule:#D8DCE0;
-  --btn: #10293c;
-  --btn-hover: #285c84;
-  --btn-no-disp: #7e848c;
-  --bg:#FFFFFF;
-  --serif:'Cambria',Georgia,serif;
+  --navy:#10293c;
+  --blue:#1d3f5c;
+  --blue-hover:#285c84;
+  --blue-light:#a2c5e4;
+  --blue-impact: #aed6fb;
+  --blue-wash:#f1f6f9;
+  --primary:#1d3f5c;
+  --ink:#18242d;
+  --text:#44515b;
+  --muted:#6c7881;
+  --rule:#dbe3e8;
+  --surface:#ffffff;
+  --canvas:#f3f5f7;
+  --shadow:0 1px 3px rgba(16,41,60,.05),0 10px 30px rgba(16,41,60,.05);
+  --radius:14px;
+  /* type scale — one place, whole numbers */
+  --t-xxs:9px;
+  --t-xs:11px;
+  --t-sm:12px;
+  --t-md:13px;
+  --t-lg:15px;
+  --t-xl:18px;
+  --t-2xl:22px;
+  --t-3xl:26px;
+  /* weight scale — normal / medium / semibold */
+  --w-normal:400;
+  --w-medium:500;
+  --w-semibold:600;
   --sans:'Inter',Calibri,Arial,sans-serif;
+  --serif:'Cambria',Georgia,serif;
 }
 
 *{box-sizing:border-box}
-html,body{margin:0;padding:0;background:#8A8F96}
-body{font-family:var(--sans);font-size:11pt;line-height:1.4;color:var(--text)}
+html{scroll-behavior:smooth}
+html,body{margin:0;padding:0;background:var(--canvas)}
+body{font-family:var(--sans);color:var(--text);font-size:15px;line-height:1.58;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration-color:rgba(29,63,92,.4);text-underline-offset:3px}
+a:hover{color:var(--blue-hover)}
 
-@page{size:8.5in 11in;margin:10mm 20mm}
-@media print{
-  html,body{background:#fff}
-  body{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-  .page{width:auto;min-height:0;margin:0;padding:0;box-shadow:none}
-  .page+.page{page-break-before:always}
-  .break-before{break-before:page;page-break-before:always}
-  .screen-note{display:none!important}
-  .doc-nav{display:none!important}
-  .break-before{break-before:page;page-break-before:always;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:.01ms!important}
 }
 
+/* =========================
+   WEB SHELL + HEADER
+   ========================= */
 .page{
-  width:8.5in;min-height:11in;background:var(--bg);
-  padding: 10mm 20mm;
-  position:relative;margin:0 auto 9.4mm;box-shadow:0 2px 14px rgba(0,0,0,.28);
+  width:min(1180px,calc(100% - 48px));
+  min-height:100vh;
+  margin:32px auto 56px;
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 
-/* ---------- shared header (centered) ---------- */
 .doc-head{
-  text-align:center;
-  border-bottom:2px solid var(--primary);
-  padding-bottom:0.1in;margin-bottom:0.2in;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:end;
+  gap:28px;
+  padding:34px 42px 28px;
+  background:linear-gradient(180deg,var(--blue-wash) 0%, #fff 44%);
+  border-bottom:1px solid var(--rule);
 }
 .doc-name{
   margin:0;
@@ -53,271 +80,225 @@ body{font-family:var(--sans);font-size:11pt;line-height:1.4;color:var(--text)}
   line-height:1.04;
   letter-spacing:.035em;
   text-transform:uppercase;
-  color:var(--primary);
-  font-weight:780;
+  color:var(--navy);
+  font-weight:var(--w-semibold);
 }
-.doc-role{
-  font-size:9pt;color:var(--text);line-height:1.2;
-  margin-top:.055in;
-}
-.doc-contact{font-size:9pt;color:var(--text);line-height:1.2;margin-top:.055in}
-.doc-contact span{white-space:nowrap}
+.doc-role{margin-top:9px;color:var(--blue);font-size:var(--t-lg);font-weight:var(--w-medium);letter-spacing:.01em}
+.doc-contact{margin-top:11px;font-size:var(--t-md);color:var(--muted);line-height:1.65}
+.doc-contact a{color:inherit;text-decoration:none}
+.doc-contact a:hover{color:var(--blue)}
 
-/* screen-only nav buttons under the header (language toggle + landing) */
-.doc-nav{
-  display:flex;justify-content:center;flex-wrap:wrap;gap:.1in;
-  margin:.12in 0 .04in;
+.doc-nav{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:9px;margin:0}
+.doc-nav a,.doc-nav button{
+  appearance:none;
+  border:1px solid var(--navy);
+  background:var(--surface);
+  color:var(--navy);
+  border-radius:999px;
+  padding:9px 14px;
+  font:var(--w-semibold) 12px/1 var(--sans);
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .18s ease,background-color .18s ease,color .18s ease,box-shadow .18s ease;
 }
-.doc-nav a{
-  display:inline-block;padding:.045in .15in;
-  font-family:var(--sans);font-size:8.5pt;font-weight:600;line-height:1.3;
-  color:var(--primary);background-color:var(--bg);
-    border: solid 1px var(--primary);
-  text-decoration:none;border-radius:4px;
-  transition:background-color .2s;
-}
-.doc-nav a:hover{background-color:var(--btn-hover);color:var(--bg)}
+.doc-nav a.primary,.doc-nav button.primary{background:var(--navy);color:#fff}
+.doc-nav a:hover,.doc-nav button:hover{transform:translateY(-1px);background:var(--blue-hover);border-color:var(--blue-hover);color:#fff;box-shadow:0 6px 16px rgba(16,41,60,.14)}
 
-/* ---------- shared typography ---------- */
-h2.title{
-  font-family:var(--sans);font-size:11pt;font-weight:700;font-variant:small-caps;text-align:center;color:var(--primary);
-  margin-bottom:.16in;
+/* =========================
+   CV LAYOUT
+   ========================= */
+.cv-layout{
+  display:grid;
+  grid-template-columns:minmax(245px,35%) minmax(0,1fr);
+  gap:42px;
+  padding:38px 42px 46px;
 }
+.cv-sidebar{align-self:start;position:sticky;top:22px}
+.cv-main{min-width:0}
+
+.section-kicker{
+  margin:0 0 12px;
+  color:var(--blue);
+  font-size:var(--t-xs);
+  font-weight:var(--w-semibold);
+  letter-spacing:.105em;
+  text-transform:uppercase;
+}
+.sidebar-section{padding:0 0 25px;margin:0 0 25px;border-bottom:1px solid var(--blue)}
+.sidebar-section:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+.summary{margin:0;font-size:var(--t-md);line-height:1.62;color:var(--text)}
+.portfolio-link{display:inline-flex;align-items:center;gap:6px;margin-top:12px;font-size:var(--t-sm);font-weight:var(--w-semibold);text-decoration:none;color:var(--blue)}
+.portfolio-link::after{content:'→';transition:transform .15s ease}
+.portfolio-link:hover::after{transform:translateX(3px)}
+
+.metrics-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.metric{
+  min-height:92px;
+  padding:14px 13px 12px;
+  border:1px solid var(--navy);
+  border-radius:12px;
+  background:transparent;
+}
+.metric-value{display:block;color:var(--ink);font-size:var(--t-3xl);font-weight:var(--w-semibold);line-height:1.05;letter-spacing:-.03em}
+.metric-label{display:block;margin-top:7px;color:var(--ink);font-size:var(--t-xs);line-height:1.35;font-weight:var(--w-medium)}
+
+.skill-group{margin-bottom:15px}
+.skill-group:last-child{margin-bottom:0}
+.skill-group-title{margin:0 0 8px;color:var(--ink);font-size:var(--t-sm);font-weight:var(--w-semibold)}
+.skills{display:flex;flex-wrap:wrap;gap:6px}
+.skill{display:inline-flex;align-items:center;padding:6px 9px;border:1px solid var(--blue);border-radius:999px;background:transparent;color:var(--blue);font-size:var(--t-xs);font-weight:var(--w-medium);line-height:1.2}
+
+.edu{margin:0 0 15px}
+.edu:last-child{margin-bottom:0}
+.edu-deg{color:var(--ink);font-size:var(--t-md);font-weight:var(--w-medium);line-height:1.4}
+.edu-desc{margin:4px 0 0;color:var(--muted);font-size:var(--t-sm);line-height:1.45;font-style:normal}
+.info{margin:0 0 10px;font-size:var(--t-md);line-height:1.48}
+.info:last-child{margin-bottom:0}
+.info strong{color:var(--ink)}
 
 h2.sec{
-  font-family:var(--sans);font-size:11pt;font-weight:700;color:var(--primary);
-  margin:.16in 0 .07in;padding-bottom:.04in;border-bottom:1px solid var(--rule);
+  margin:0 0 15px;
+  color:var(--navy);
+  font-size:var(--t-xl);
+  font-weight:var(--w-semibold);
+  letter-spacing:-.01em;
 }
-h2.sec:first-of-type{margin-top:0}
-p{margin:0 0 .14in}
-strong{font-weight:600}
-a{color:var(--primary);text-decoration:underline dashed 1px var(--primary)}
-.re{font-weight:700;color:var(--primary);margin-bottom:.18in;line-height:1.4}
-.meta{font-size:10pt;color:var(--text);line-height:1.4}
-
-/* ---------- CV ---------- */
-.summary{font-size:10pt;line-height:1.4}
-.comp{font-size:10pt;line-height:1.4;color:var(--text);}
-.comp strong{color:var(--primary)}
-.role{margin-bottom:.09in;page-break-inside:avoid}
-.role-hd{display:flex;justify-content:space-between;align-items:baseline;gap:.15in}
-.role-title{font-family:var(--sans);color:var(--primary);font-size:10pt;font-weight:700;line-height:1.4}
-.role-dates{font-size:10pt;color:var(--text);white-space:nowrap}
-.role-org{font-size:10pt;color:var(--primary);font-weight:600;margin:.015in 0 .04in;line-height:1.4}
-ul{margin:0;padding-left:.19in}
-li{margin-bottom:.03in;font-size:10pt;line-height:1.4}
-li strong {color:var(--primary);}
-.edu{margin-bottom:.07in}
-.edu-hd{display:flex;justify-content:space-between;align-items:baseline;gap:.15in}
-.edu-deg{font-family:var(--sans);color:var(--primary);font-size:10pt;font-weight:600;line-height:1.4}
-.edu-desc{font-size:10pt;font-style:italic;line-height:1.4;color:var(--text);margin:.02in 0 0}
-
-/* sub-section label inside a CV section (e.g. "Earlier Experience") */
-.subhead{
-  font-family:var(--sans);font-size:10pt;font-weight:700;color:var(--text);
-  margin:.14in 0 .05in;
+.role{
+  position:relative;
+  margin:0 0 16px;
+  padding:20px 22px 19px;
+  border:1px solid var(--blue);
+  border-radius:var(--radius);
+  background:#fff;
 }
+.role-hd{display:flex;justify-content:space-between;align-items:flex-start;gap:18px}
+.role-title{color:var(--navy);font-size:var(--t-lg);font-weight:var(--w-semibold);line-height:1.35}
+.role-dates{flex:0 0 auto;margin-top:1px;padding:4px 8px;border-radius:999px;background:transparent;color:var(--blue);font-size:var(--t-xs);font-weight:var(--w-semibold);white-space:nowrap}
+.role-org{margin:4px 0 12px;color:var(--blue);font-size:var(--t-sm);font-weight:var(--w-semibold)}
+p{font-size:var(--t-md);line-height:1.55;color:var(--text)}
+p strong{color:var(--ink);font-weight:var(--w-semibold)}
+ul{margin:0;padding-left:18px}
+li{margin:0 0 7px;font-size:var(--t-md);line-height:1.55;color:var(--text)}
+li:last-child{margin-bottom:0}
+li::marker{color:var(--blue-light)}
+li strong{color:var(--ink);font-weight:var(--w-semibold)}
 
-/* selected engagements / key projects: run-in title, prose, outcome */
-.eng{font-size:10pt;line-height:1.4;margin:0 0 .09in;page-break-inside:avoid}
-.eng strong{color:var(--primary)}
-.eng .outcome{font-style:italic;color:var(--text)}
-
-.portfolio {font-size:10pt;line-height:1.4;margin:0 0 .09in;page-break-inside:avoid}
-
-/* additional-information lines */
-.info{font-size:10pt;line-height:1.4;margin:0 0 .05in}
-.info strong{color:var(--primary)}
-
-/* ---------- memo / work sample ---------- */
-.memo-label{
-  font-family:var(--serif);font-size:13pt;font-weight:700;
-  text-transform:uppercase;color:var(--primary);margin-bottom:.17in;text-align:center;
+/* =========================
+   PORTFOLIO
+   ========================= */
+.portfolio-shell{padding:36px 42px 46px}
+h2.title{margin:0 0 24px;color:var(--navy);font-size:var(--t-2xl);font-weight:var(--w-semibold);letter-spacing:-.015em}
+.portfolio-intro{max-width:780px;margin:-12px 0 28px;color:var(--muted);font-size:var(--t-md)}
+.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.project-card{
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  padding:22px 22px 20px;
+  border:1px solid var(--blue);
+  border-radius:var(--radius);
+  background:#fff;
 }
-.memo-grid{
-  display:grid;grid-template-columns:.72in 1fr;row-gap:.045in;column-gap:.1in;
-  font-size:10pt;line-height:1.4;
-  border-bottom:1px solid var(--rule);padding-bottom:.15in;margin-bottom:.22in;
-}
-.memo-grid dt{
-  font-weight:700;color:var(--text);font-size:8.5pt;
-  text-transform:uppercase;padding-top:.028in;
-}
+.project-card h2.sec{margin:0 0 16px;font-size:var(--t-lg);line-height:1.38}
+.project-card .portfolio{margin:0 0 13px;font-size:var(--t-md);line-height:1.58}
+.project-card .portfolio strong{display:block;margin-bottom:2px;color:var(--blue);font-size:var(--t-xs);font-weight:var(--w-semibold);letter-spacing:.08em;text-transform:uppercase}
+.project-card .portfolio.outcome{margin-top:auto;margin-bottom:0;padding:12px 13px;background:var(--blue-impact);border:1px solid var(--blue);border-radius:8px;color:var(--ink)}
+.project-card .portfolio.outcome strong{color:var(--navy)}
+
+/* legacy / other document classes retained */
+.re{font-weight:var(--w-semibold);color:var(--navy)}
+.meta{font-size:13px;color:var(--text)}
+.memo-label{font-family:var(--serif);font-size:18px;font-weight:var(--w-semibold);text-transform:uppercase;color:var(--navy);text-align:center}
+.memo-grid{display:grid;grid-template-columns:110px 1fr;gap:7px 16px;font-size:13px;border-bottom:1px solid var(--rule);padding-bottom:18px;margin-bottom:24px}
+.memo-grid dt{font-weight:var(--w-semibold);color:var(--muted);font-size:11px;text-transform:uppercase}
 .memo-grid dd{margin:0}
-h3.iss{
-  font-family:var(--serif);font-size:10.5pt;font-weight:700;color:var(--text);
-  margin:.19in 0 .075in;line-height:1.4;
-}
-.note{
-  border-left:2px solid var(--primary);background:#F4F6F8;padding:.12in .15in;
-  font-size:9.5pt;line-height:1.5;margin:.14in 0;
-}
-.note .lbl{font-weight:700;color:var(--primary)}
-.memo-grid+h2.sec{margin-top:.2in}
-.note{margin:.16in 0}
+.note{border:1px solid var(--blue);background:var(--blue-wash);border-radius:8px;padding:14px 16px;font-size:13px;line-height:1.5;margin:16px 0}
+.screen-note{max-width:920px;margin:24px auto;background:#111;color:#eee;border:1px solid var(--blue);border-radius:8px;padding:16px 20px;font-size:13px}
 
-/* ---------- screen-only ---------- */
-.screen-note{
-  max-width:8.5in;margin:.35in auto .2in;background:#111;color:#eee;
-  padding:.18in .24in;font-size:10pt;line-height:1.5;border-left:3px solid var(--primary);
-}
-.screen-note h4{margin:0 0 .06in;font-family:var(--serif);font-size:11pt;color:#fff}
-.screen-note code{background:#2a2a2a;padding:1px 5px;border-radius:2px;font-size:9.5pt}
-
-/* ---------- responsive screen layout ---------- */
-@media screen and (max-width: 700px){
-  html,body{
-    width:100%;
-    max-width:100%;
-    overflow-x:hidden;
-    background:var(--bg);
-  }
-
-  body{
-    font-size:10.5pt;
-    -webkit-text-size-adjust:100%;
-    text-size-adjust:100%;
-  }
-
-  .page{
-    width:100%;
-    min-height:0;
-    margin:0;
-    padding:22px 18px 30px;
-    box-shadow:none;
-  }
-
-  .doc-head{
-    padding-bottom:12px;
-    margin-bottom:12px;
-  }
-
-  .doc-name{
-    font-size:15pt;
-    letter-spacing:.035em;
-  }
-
-  .doc-role{
-    font-size:9pt;
-    line-height:1.35;
-  }
-
-  .doc-contact{
-    font-size:8.8pt;
-    line-height:1.55;
-    overflow-wrap:anywhere;
-  }
-
-  .doc-contact span{
-    white-space:normal;
-  }
-
-  .doc-contact a{
-    display:inline;
-  }
-
-  .doc-nav{
-    width:100%;
-    margin:12px 0 18px;
-    gap:8px;
-  }
-
-  .doc-nav a{
-    flex:1 1 145px;
-    max-width:220px;
-    padding:9px 12px;
-    font-size:9pt;
-    text-align:center;
-    text-decoration:none;
-  }
-
-  h2.title{
-    font-size:11pt;
-    line-height:1.3;
-    margin:16px 0 14px;
-  }
-
-  h2.sec{
-    font-size:10.5pt;
-    line-height:1.3;
-    margin:18px 0 8px;
-    padding-bottom:5px;
-  }
-
-  .summary,.comp,.role-title,.role-dates,.role-org,
-  .edu-deg,.edu-desc,.subhead,.eng,.portfolio,.info,
-  li,.meta{
-    font-size:9.5pt;
-    line-height:1.48;
-  }
-
-  p{
-    margin-bottom:12px;
-  }
-
-  ul{
-    padding-left:20px;
-  }
-
-  li{
-    margin-bottom:5px;
-  }
-
-  .role{
-    margin-bottom:14px;
-  }
-
-  .role-hd,.edu-hd{
-    display:block;
-  }
-
-  .role-title,.role-dates{
-    display:block;
-  }
-
-  .role-dates{
-    margin-top:1px;
-    white-space:normal;
-    font-size:9pt;
-  }
-
-  .role-org{
-    margin-top:3px;
-  }
-
-  .memo-grid{
-    grid-template-columns:1fr;
-    row-gap:2px;
-  }
-
-  .memo-grid dt{
-    margin-top:7px;
-  }
-
-  .screen-note{
-    width:auto;
-    max-width:none;
-    margin:16px;
-  }
+/* =========================
+   TABLET + MOBILE
+   ========================= */
+@media screen and (max-width:900px){
+  .page{width:min(100% - 28px,760px);margin:14px auto 32px;border-radius:14px}
+  .doc-head{grid-template-columns:1fr;align-items:start;padding:28px 26px 23px;gap:18px}
+  .doc-nav{justify-content:flex-start}
+  .cv-layout{grid-template-columns:1fr;gap:30px;padding:30px 26px 38px}
+  .cv-sidebar{position:static}
+  .sidebar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 26px}
+  .sidebar-section{min-width:0}
+  .portfolio-shell{padding:30px 26px 38px}
+  .project-grid{grid-template-columns:1fr}
 }
 
-@media screen and (max-width: 420px){
-  .page{
-    padding:18px 14px 26px;
-  }
+@media screen and (max-width:600px){
+  html,body{background:#fff;overflow-x:hidden}
+  body{font-size:14px;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+  .page{width:100%;margin:0;border:0;border-radius:0;box-shadow:none}
+  .doc-head{padding:24px 18px 20px}
+  .doc-name{font-size:25px}
+  .doc-role{font-size:var(--t-md);line-height:1.45}
+  .doc-contact{font-size:var(--t-sm);line-height:1.7;overflow-wrap:anywhere}
+  .doc-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:8px}
+  .doc-nav a,.doc-nav button{display:flex;justify-content:center;align-items:center;min-height:38px;padding:8px 10px;text-align:center}
+  .cv-layout,.portfolio-shell{padding:25px 18px 34px}
+  .sidebar-grid{display:block}
+  .metrics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .metric{min-height:84px}
+  .role{padding:17px 16px 16px;border-radius:11px}
+  .role-hd{display:block}
+  .role-dates{display:inline-flex;margin-top:7px}
+  .role-org{margin-top:7px}
+  h2.title{font-size:20px;line-height:1.25}
+  .project-card{padding:18px 16px 16px;border-radius:11px}
+}
 
-  .doc-name{
-    font-size:14pt;
-  }
+@media screen and (max-width:380px){
+  .doc-nav{grid-template-columns:1fr}
+  .metrics-grid{grid-template-columns:1fr 1fr}
+  .metric-value{font-size:20px}
+}
 
-  .doc-nav a{
-    flex-basis:100%;
-    max-width:none;
-  }
-
-  .summary,.comp,.role-title,.role-org,
-  .edu-deg,.edu-desc,.subhead,.eng,.portfolio,.info,
-  li,.meta{
-    font-size:9.25pt;
-  }
+/* =========================
+   PRINT: restrained document output
+   ========================= */
+@page{size:8.5in 11in;margin:10mm 16mm}
+@media print{
+  :root{--navy:#111;--blue:#111;--text:#444;--muted:#555;--rule:#d8dce0}
+  html,body{background:#fff}
+  body{font-size:10pt;line-height:1.4;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:auto;min-height:0;margin:0;border:0;border-radius:0;box-shadow:none;overflow:visible}
+  .doc-head{display:block;padding:0 0 .1in;margin:0 0 .17in;text-align:center;background:#fff;border-bottom:2px solid #111}
+  .doc-name{font-size:14pt;letter-spacing:.05em}
+  .doc-role,.doc-contact{font-size:9pt;margin-top:.055in}
+  .doc-nav{display:none!important}
+  .cv-layout{display:block;padding:0}
+  .cv-sidebar{position:static}
+  .sidebar-grid{display:block}
+  .sidebar-section{padding:0;margin:0 0 .12in;border:0}
+  .section-kicker{font-size:10.5pt;letter-spacing:0;text-transform:none;margin:.13in 0 .05in;padding-bottom:.035in;border-bottom:1px solid var(--rule);color:#111}
+  .summary{font-size:9.6pt;line-height:1.4}
+  .portfolio-link{display:none}
+  .metrics-grid{display:none}
+  .skills{display:block}
+  .skill-group{margin:0 0 .06in}
+  .skill-group-title{font-size:9.6pt;margin:0 0 .02in}
+  .skill{display:inline;padding:0;border:0;background:none;color:#444;font-size:9.3pt;font-weight:var(--w-normal)}
+  .skill:not(:last-child)::after{content:' · ';}
+  h2.sec{font-size:10.5pt;margin:.14in 0 .06in}
+  .role{padding:0;margin:0 0 .1in;border:0;border-radius:0;box-shadow:none;page-break-inside:avoid}
+  .role-title,.role-dates,.role-org,li{font-size:9.3pt}
+  .role-dates{padding:0;background:none;color:#444}
+  .role-org{margin:.01in 0 .035in}
+  li{margin-bottom:.025in;line-height:1.38}
+  .edu-deg{font-size:9.3pt}.edu-desc,.info{font-size:9pt}
+  .portfolio-shell{padding:0}
+  h2.title{font-size:11pt;text-align:center;margin:0 0 .16in}
+  .portfolio-intro{display:none}
+  .project-grid{display:block}
+  .project-card{padding:0;margin:0 0 .15in;border:0;border-radius:0;box-shadow:none;page-break-inside:avoid}
+  .project-card h2.sec{font-size:9.8pt;margin:0 0 .05in;border-bottom:1px solid var(--rule);padding-bottom:.03in}
+  .project-card .portfolio,.project-card .portfolio.outcome{font-size:9.2pt;line-height:1.4;margin:0 0 .045in;padding:0;background:none;border:0;color:#444}
+  .project-card .portfolio strong{display:inline;margin:0;color:#111;font-size:9.2pt;letter-spacing:0;text-transform:none}
+  .screen-note{display:none!important}
+  .break-before{break-before:page;page-break-before:always}
 }
